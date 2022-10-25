@@ -1,0 +1,105 @@
+<?php
+namespace App\Helpers;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use App\RouteModel;
+use App\JamModel;
+session_start();
+class Helper {
+    public static function createController($controller,$method){
+      $file = '<?php
+      namespace App\Http\Controllers;
+      use Illuminate\Http\Request;
+      use App\InstansiModel;
+      use DataTables;
+      use Session;
+      use Intervention\Image\ImageManagerStatic as Image;
+      class '.$controller.' extends Controller
+      {
+        public function __construct()
+      {
+
+      }
+
+      public function '.$method.'(){
+          print("success");
+      }
+      public function save(Request $r){
+        $data =[
+
+        ];
+
+        $act = Jabatan::insert($data);
+        if($act){
+          return back()->with();
+        }
+
+      }
+      public function update(Request $r){
+        $data =[
+
+        ];
+
+        $act = Jabatan::where(,$r->id)->update($data);
+        if($act){
+          return back()->with(,);
+        }
+
+      }
+      public function hapus($id){
+        $act = Jabatan::where(,base64_decode($id))->delete();
+        if($act){
+          return back()->with(,);
+        }
+
+      }
+    }';
+      return $file;
+
+}
+    public static function get_route() {
+
+      $result = array();
+      $level  = session()->get('level');
+      $data = RouteModel::where('active','Y')
+               ->get();
+               foreach ($data as $key => $route) {
+                 $mn = explode(',',$route->session);
+
+                 //$mn = array("admin", "Joe", "Glenn", "Cleveland");
+
+                   if(!empty($_SESSION["level"]) AND in_array($_SESSION["level"],$mn)){
+                     $dt=[
+                       'link'=>$route->link,
+                       'controller'=>$route->controller,
+                       'method'=>$route->method
+                     ];
+                      array_push($result,$dt);
+                   }
+
+
+
+               }
+              return json_encode($result);
+    }
+
+    public static function jam($hari,$jenis,$unitkerja){
+
+      $data = JamModel::where('kode_unitkerja',$unitkerja)
+              ->where('jenis',$jenis)
+              ->where('hari',$hari)
+              ->first();
+      if($data != null){
+        return $data;
+      }else{
+        $data =[
+          'jam'=>"<a class='btn btn-danger'>Belum Diatur</a>",
+          'batas'=>"<a class='btn btn-danger'>Belum Diatur</a>",
+        ];
+        return $data;
+      }
+
+
+    }
+}
