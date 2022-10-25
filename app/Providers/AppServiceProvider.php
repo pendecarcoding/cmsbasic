@@ -14,6 +14,9 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
          app_path() . '/Helpers/Helper.php';
+         $this->app->bind(
+            'App\Http\Interfaces\PegawaiInterfaces',
+            'App\Http\Repository\PegawaiRepository');
     }
 
     /**

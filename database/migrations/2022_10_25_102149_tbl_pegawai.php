@@ -23,6 +23,7 @@ class TblPegawai extends Migration
             $table->String('nohp',5);
             $table->String('image',100);
             $table->enum('status', ['ASN', 'NONASN'])->default('ASN');
+            $table->String('kode_unitkerja',15);
             $table->timestamps();
         });
     }

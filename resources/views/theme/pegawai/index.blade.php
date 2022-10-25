@@ -1,11 +1,6 @@
 @extends('theme.Layouts.design')
 @section('content')
-<?php
-use App\Cmenu;
-$class = new Cmenu();
-$bulan = (isset($_GET['bulan'])) ? $_GET['bulan'] : date('m');
-$tahun = (isset($_GET['tahun'])) ? $_GET['tahun'] : date('Y');
- ?>
+
 <main class="app-content">
   <div class="app-title">
     <div>
@@ -39,15 +34,24 @@ $tahun = (isset($_GET['tahun'])) ? $_GET['tahun'] : date('Y');
             <th>No</th>
             <th></th>
             <th>Nama</th>
-            <th>Jabatan</th>
-            <th>Agama</th>
-            <th>Pangkat</th>
-            <th>Gol</th>
-            <th>Alamat</th>
+            <th>No HP</th>
+            <th>Email</th>
             <th width="10%"></th>
         </thead>
         <tbody>
-          
+          @foreach ($data as $i =>$v)
+          <tr>
+            <td>{{ $i+1 }}</td>
+            <td>{{ $v->image }}</td>
+            <td>{{ $v->nama }}<br>{{ $v->nip }}</td>
+            <td>{{ $v->nohp }}</td>
+            <td>{{ $v->email}}</td>
+            <td>
+              <a class="btn btn-warning btn-sm"></a>
+              <a class="btn btn-danger btn-sm"></a>
+            </td>
+          </tr> 
+          @endforeach
         </tbody>
         </table>
       </div>
