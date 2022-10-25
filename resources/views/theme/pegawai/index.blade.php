@@ -18,7 +18,7 @@
 <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <a data-toggle="modal" href="#tambah" data-target="#tambah" style="color:white;" class="btn waves-effect waves-light btn-primary pull-right">Tambah Data</a>
+        <a data-toggle="modal" href="#tambah" data-target="#tambah" style="color:white;" class="btn waves-effect waves-light btn-primary pull-right"> <i class="fa fa-plus"></i>  Tambah Data</a>
         <a style="float: right;" class="btn btn-warning"><i class="fa fa-file-excel-o"></i> Import Data </a>
         <h4 class="card-title">Data Pegawai</h4>
       </div>
