@@ -24,7 +24,14 @@ class PegawaiRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            'nip'=>'required',
+            'nama'=>'required',
+            'email'=>'required',
+            'gd'=>'required',
+            'gb'=>'required',
+            'nohp'=>'required',
+            'image'=>'required',
+            'status'=>'required',
         ];
     }
 }
