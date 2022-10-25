@@ -18,7 +18,8 @@
 <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <a class="float-right btn btn-primary text-white">Tambah Data</a>
+        <a data-toggle="modal" href="#tambah" data-target="#tambah" style="color:white;" class="btn waves-effect waves-light btn-primary pull-right">Tambah Data</a>
+        <a style="float: right;" class="btn btn-warning"><i class="fa fa-file-excel-o"></i> Import Data </a>
         <h4 class="card-title">Data Pegawai</h4>
       </div>
     <div class="card-body">
@@ -62,6 +63,92 @@
   </div>
 </div>
 </div>
+<div class="modal fade" id="tambah" role="dialog">
+  <div class="modal-dialog modal-md">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Tambah Data Pegawai</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+      <div class="modal-body">
+        <form class="" action="http://127.0.0.1:8000/addjabatan" method="post"><input type="hidden" name="_token" value="1jmMkWwhKTpExjXyrBGKrWIvb6l0Pqy5Tp8DNtwP">
+         <div class="form-group">
+     <label>Foto</label>
+        <br>
+        <image id="preview" src="{{ asset('noimage.png') }}" style="width:200px;height:200px;">
+        <br>
+        <br>
+        <input type="hidden" name="logold" value="">
+        <input type="file"  name="file" id="file"  onchange="tampilkanPreview(this,'preview')">
+        <script>
+        function tampilkanPreview(gambar,idpreview){
+          //membuat objek gambar
+            var gb = gambar.files;
+          //loop untuk merender gambar
+              for (var i = 0; i < gb.length; i++){
+                //bikin variabel
+                  var gbPreview = gb[i];
+                  var imageType = /image.*/;
+                  var preview=document.getElementById(idpreview);
+                  var reader = new FileReader();
+                    if (gbPreview.type.match(imageType)) {
+                    //jika tipe data sesuai
+                      preview.file = gbPreview;
+                      reader.onload = (function(element) {
+                        return function(e) {
+                            element.src = e.target.result;
+                        };
+                      })(preview);
+                      //membaca data URL gambar
+                      reader.readAsDataURL(gbPreview);
+                    }
+                    else{
+                    //jika tipe data tidak sesuai
+                      alert("Type file tidak sesuai. Khusus image.");
+                      document.getElementById("file").value = "";
+                    }
+              }
+        }
+        </script>
+        <br>
+  </div>
+        
+        <div class="form-group">
+          <label>NIP</label>
+        <input type="text" class="form-control" name="nip" value="">
+        </div>
+      <div class="form-group">
+        <label>Nama</label>
+      <input type="text" class="form-control" name="nama" value="">
+    </div>
+   
+  <div class="form-group">
+    <label>Gelar Depan</label>
+  <input type="text" class="form-control" name="gd" value="">
+</div>
+<div class="form-group">
+  <label>Gelar Belakang</label>
+<input type="text" class="form-control" name="gb" value="">
+</div>
+      <div class="form-group">
+        <label>NO HP</label>
+      <input type="text" class="form-control" name="nohp" value="">
+      </div>
+
+      <div class="form-group">
+      <label>Email</label>
+        <input type="text" class="form-control" name="email" value="">
+      </div>
+     
+      <ul class="list-group">
+          <button class="btn btn-primary" type="submit">Simpan</button>
+      </ul>
+       </form>
+      </div>
+    </div>
+  </div>
+      </div>
 
 
 
