@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\RouteModel;
 use App\JamModel;
+use Intervention\Image\ImageManagerStatic as Image;
 session_start();
 class Helper {
     public static function createController($controller,$method){
@@ -82,6 +83,23 @@ class Helper {
 
                }
               return json_encode($result);
+    }
+
+    public static function test (){
+      print "berhasil";
+    }
+
+    public function ImageSave($file,$path){
+        $ext  = $file->getClientOriginalExtension();
+        $name = time().'.'.$ext;
+        $image_resize = Image::make($file->getRealPath());
+        $image_resize->resize(300, 300);
+        $image_resize->save(public_path($path.'/'.$name));
+          if(file_exists(public_path($path.'/'.$ref)))
+           {
+              unlink(public_path($path.'/'.$ref));
+           }
+       
     }
 
     public static function jam($hari,$jenis,$unitkerja){

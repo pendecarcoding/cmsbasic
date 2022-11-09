@@ -5,6 +5,7 @@ use App\PegawaiModel;
 use App\Http\Interfaces\PegawaiInterfaces;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Cache;
+use Helper; 
 class PegawaiRepository implements PegawaiInterfaces
 {
     protected $model;
@@ -20,10 +21,8 @@ class PegawaiRepository implements PegawaiInterfaces
     }
     
     public function create(array $data)
-    {   if($this->model->create($data)){
-           return redirect('product')->with('success','Data berhasil disimpan');
-        }
-        
+    {  
+        Helper::test();      
     }
     public function update(array $data, $id)
     {

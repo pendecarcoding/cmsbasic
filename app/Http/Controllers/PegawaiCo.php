@@ -21,7 +21,15 @@ class PegawaiCo extends Controller
    return view($this->index,compact('data'));
  }
 
- public function add(Request $r){
+ public function create(Request $r){
+  try {
+    if($r->has('file')){
+    $data = $r->all();
+    $this->DI->create($data);
+    }
+  } catch (\Throwable $th) {
+    return back()->with('danger',$th->getmessage());
+  }
    
  }
 

@@ -12,143 +12,147 @@
       <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
     </ul>
   </div>
+    @include('theme.Layouts.alert')
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <a data-toggle="modal" href="#tambah" data-target="#tambah" style="color:white;"
+            class="btn waves-effect waves-light btn-primary pull-right"> <i class="fa fa-plus"></i> Tambah Data</a>
+          <a style="float: right;" class="btn btn-warning"><i class="fa fa-file-excel-o"></i> Import Data </a>
+          <h4 class="card-title">Data Pegawai</h4>
+        </div>
+        <div class="card-body">
 
 
-<div class="row">
-<div class="col-12">
-    <div class="card">
-      <div class="card-header">
-        <a data-toggle="modal" href="#tambah" data-target="#tambah" style="color:white;" class="btn waves-effect waves-light btn-primary pull-right"> <i class="fa fa-plus"></i>  Tambah Data</a>
-        <a style="float: right;" class="btn btn-warning"><i class="fa fa-file-excel-o"></i> Import Data </a>
-        <h4 class="card-title">Data Pegawai</h4>
+          <h6 class="card-subtitle"></h6>
+
+          <br>
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered" id="sampleTable">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th></th>
+                  <th>Nama</th>
+                  <th>No HP</th>
+                  <th>Email</th>
+                  <th width="10%"></th>
+              </thead>
+              <tbody>
+                @foreach($data as $i =>$v)
+                  <tr>
+                    <td>{{ $i+1 }}</td>
+                    <td>{{ $v->image }}</td>
+                    <td>{{ $v->nama }}<br>{{ $v->nip }}</td>
+                    <td>{{ $v->nohp }}</td>
+                    <td>{{ $v->email }}</td>
+                    <td>
+                      <a class="btn btn-warning btn-sm"></a>
+                      <a class="btn btn-danger btn-sm"></a>
+                    </td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    <div class="card-body">
 
 
-      <h6 class="card-subtitle"></h6>
-
-      <br>
-      <div class="table-responsive">
-        <table class="table table-hover table-bordered" id="sampleTable">
-          <thead>
-            <tr>
-            <th>No</th>
-            <th></th>
-            <th>Nama</th>
-            <th>No HP</th>
-            <th>Email</th>
-            <th width="10%"></th>
-        </thead>
-        <tbody>
-          @foreach ($data as $i =>$v)
-          <tr>
-            <td>{{ $i+1 }}</td>
-            <td>{{ $v->image }}</td>
-            <td>{{ $v->nama }}<br>{{ $v->nip }}</td>
-            <td>{{ $v->nohp }}</td>
-            <td>{{ $v->email}}</td>
-            <td>
-              <a class="btn btn-warning btn-sm"></a>
-              <a class="btn btn-danger btn-sm"></a>
-            </td>
-          </tr> 
-          @endforeach
-        </tbody>
-        </table>
-      </div>
     </div>
   </div>
-
-
   </div>
-</div>
-</div>
-<div class="modal fade" id="tambah" role="dialog">
-  <div class="modal-dialog modal-md">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Tambah Data Pegawai</h4>
-        <button type="button" class="close" data-dismiss="modal">×</button>
-      </div>
-      <div class="modal-body">
-        <form class="" action="http://127.0.0.1:8000/addjabatan" method="post"><input type="hidden" name="_token" value="1jmMkWwhKTpExjXyrBGKrWIvb6l0Pqy5Tp8DNtwP">
-         <div class="form-group">
-     <label>Foto</label>
-        <br>
-        <image id="preview" src="{{ asset('noimage.png') }}" style="width:200px;height:200px;">
-        <br>
-        <br>
-        <input type="hidden" name="logold" value="">
-        <input type="file"  name="file" id="file"  onchange="tampilkanPreview(this,'preview')">
-        <script>
-        function tampilkanPreview(gambar,idpreview){
-          //membuat objek gambar
-            var gb = gambar.files;
-          //loop untuk merender gambar
-              for (var i = 0; i < gb.length; i++){
-                //bikin variabel
-                  var gbPreview = gb[i];
-                  var imageType = /image.*/;
-                  var preview=document.getElementById(idpreview);
-                  var reader = new FileReader();
+  <div class="modal fade" id="tambah" role="dialog">
+    <div class="modal-dialog modal-md">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Tambah Data Pegawai</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <div class="modal-body">
+          <form action="{{url('addpegawai')}}" method="post" enctype="multipart/form-data">
+             {{ csrf_field() }}
+            <div class="form-group">
+              <label>Foto</label>
+              <br>
+              <center>
+                <image id="preview" src="{{ asset('noimage.png') }}"
+                  style="width:200px;height:200px;">
+              </center>
+              <br>
+              <br>
+              <input type="hidden" name="logold" value="">
+              <input type="file" name="file" id="file" onchange="tampilkanPreview(this,'preview')">
+              <script>
+                function tampilkanPreview(gambar, idpreview) {
+                  //membuat objek gambar
+                  var gb = gambar.files;
+                  //loop untuk merender gambar
+                  for (var i = 0; i < gb.length; i++) {
+                    //bikin variabel
+                    var gbPreview = gb[i];
+                    var imageType = /image.*/;
+                    var preview = document.getElementById(idpreview);
+                    var reader = new FileReader();
                     if (gbPreview.type.match(imageType)) {
-                    //jika tipe data sesuai
+                      //jika tipe data sesuai
                       preview.file = gbPreview;
-                      reader.onload = (function(element) {
-                        return function(e) {
-                            element.src = e.target.result;
+                      reader.onload = (function (element) {
+                        return function (e) {
+                          element.src = e.target.result;
                         };
                       })(preview);
                       //membaca data URL gambar
                       reader.readAsDataURL(gbPreview);
-                    }
-                    else{
-                    //jika tipe data tidak sesuai
+                    } else {
+                      //jika tipe data tidak sesuai
                       alert("Type file tidak sesuai. Khusus image.");
                       document.getElementById("file").value = "";
                     }
-              }
-        }
-        </script>
-        <br>
-  </div>
-        
-        <div class="form-group">
-          <label>NIP</label>
-        <input type="text" class="form-control" name="nip" value="">
-        </div>
-      <div class="form-group">
-        <label>Nama</label>
-      <input type="text" class="form-control" name="nama" value="">
-    </div>
-   
-  <div class="form-group">
-    <label>Gelar Depan</label>
-  <input type="text" class="form-control" name="gd" value="">
-</div>
-<div class="form-group">
-  <label>Gelar Belakang</label>
-<input type="text" class="form-control" name="gb" value="">
-</div>
-      <div class="form-group">
-        <label>NO HP</label>
-      <input type="text" class="form-control" name="nohp" value="">
-      </div>
+                  }
+                }
+              </script>
+              <br>
+            </div>
 
-      <div class="form-group">
-      <label>Email</label>
-        <input type="text" class="form-control" name="email" value="">
-      </div>
-     
-      <ul class="list-group">
-          <button class="btn btn-primary" type="submit">Simpan</button>
-      </ul>
-       </form>
+            <div class="form-group">
+              <label>NIP</label>
+              <input type="text" class="form-control" name="nip" value="">
+            </div>
+            <div class="form-group">
+              <label>Nama</label>
+              <input type="text" class="form-control" name="nama" value="">
+            </div>
+
+            <div class="form-group">
+              <label>Gelar Depan</label>
+              <input type="text" class="form-control" name="gd" value="">
+            </div>
+            <div class="form-group">
+              <label>Gelar Belakang</label>
+              <input type="text" class="form-control" name="gb" value="">
+            </div>
+            <div class="form-group">
+              <label>NO HP</label>
+              <input type="text" class="form-control" name="nohp" value="">
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input type="text" class="form-control" name="email" value="">
+            </div>
+
+            <ul class="list-group">
+              <button class="btn btn-primary" type="submit">Simpan</button>
+            </ul>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-      </div>
 
 
 
