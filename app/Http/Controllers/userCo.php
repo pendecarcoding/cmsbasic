@@ -25,52 +25,33 @@ class userCo extends Controller
 }
 
 
-public function AkunPegawaiByInstansi(){
-  $class = new Cmenu();
-  $listintansi = (object) $class->listinstansi();
-  $bidang = Bidang::where('kode_unitkerja',Session::get('kode_unitkerja'))->get();
-  $data = Loginmodel::where('level','ASN')
-            ->where('tbl_bidang.kode_unitkerja',Session::get('kode_unitkerja'))
-            ->join('tbl_bidang','tbl_bidang.id_bidang','tbl_user.id_bidang')
-            ->get();
-
-  return view('theme.users.instansi',compact('listintansi','bidang','data'));
-}
 
 public function index(){
   $class = new Cmenu();
-  $listintansi = (object) $class->listinstansi();
   $data  = Loginmodel::where('level','!=','admin')->get();
 
   return view($this->index,compact('data','listintansi'));
 }
 public function save(Request $r){
   $bidang = ($r->has('bidang')) ? $r->bidang:null;
-  $level  = ($r->has('level')) ? $r->level:'ASN';
   $data=[
     'nama'=>$r->nama,
     'username'=>$r->username,
-    'kode_unitkerja'=>$r->unitkerja,
     'password'=>md5($r->pass),
-    'id_bidang'=>$bidang,
-    'level'=>$level
+    'level'=>$r->level
   ];
   $act = Loginmodel::insert($data);
   return back()->with('success',$this->msukses);
 }
 public function update(Request $r){
-  $bidang = ($r->has('bidang'))? $r->bidang:null;
-  $level  = ($r->has('level')) ? $r->level:'ASN';
   $data=[
     'nama'=>$r->nama,
     'username'=>$r->username,
     'alamat'=>$r->alamat,
     'email'=>$r->email,
-    'kode_unitkerja'=>$r->unitkerja,
     'nohp'=>$r->nohp,
-    'id_bidang'=>$bidang,
     'password'=>md5($r->pass),
-    'level'=>$level
+    'level'=>$r->level
   ];
   $act = Loginmodel::where($this->primary,$r->id)->update($data);
   return back()->with('success',$this->msukses);
