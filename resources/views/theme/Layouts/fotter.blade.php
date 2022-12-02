@@ -1,81 +1,63 @@
-<!-- Essential javascripts for application to work-->
-<script src="{{asset('vali/js/jquery-3.3.1.min.js')}}"></script>
-<script src="{{asset('vali/js/popper.min.js')}}"></script>
-<script src="{{asset('vali/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('vali/js/main.js')}}"></script>
-<script src="{{asset('theme/select2/dist/js/select2.full.min.js')}}"></script>
-<!--Data Table-->
-<script type="text/javascript" src="{{asset('vali/js/plugins/jquery.dataTables.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('vali/js/plugins/dataTables.bootstrap.min.js')}}"></script>
-<script type="text/javascript">$('#sampleTable').DataTable();</script>
-<!-- The javascript plugin to display page loading on top-->
-<script src="{{asset('vali/js/plugins/pace.min.js')}}"></script>
-<!-- Page specific javascripts-->
-<script type="text/javascript" src="{{asset('vali/js/plugins/chart.js')}}"></script>
-<script type="text/javascript">
-  var data = {
-    labels: ["January", "February", "March", "April", "May"],
-    datasets: [
-      {
-        label: "My First dataset",
-        fillColor: "rgba(220,220,220,0.2)",
-        strokeColor: "rgba(220,220,220,1)",
-        pointColor: "rgba(220,220,220,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(220,220,220,1)",
-        data: [65, 59, 80, 81, 56]
-      },
-      {
-        label: "My Second dataset",
-        fillColor: "rgba(151,187,205,0.2)",
-        strokeColor: "rgba(151,187,205,1)",
-        pointColor: "rgba(151,187,205,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(151,187,205,1)",
-        data: [28, 48, 40, 19, 86]
-      }
-    ]
-  };
-  var pdata = [
-    {
-      value: 300,
-      color: "#46BFBD",
-      highlight: "#5AD3D1",
-      label: "Complete"
-    },
-    {
-      value: 50,
-      color:"#F7464A",
-      highlight: "#FF5A5E",
-      label: "In-Progress"
-    }
-  ]
+<script type="text/javascript"
+  src="{{ asset('adminty/bower_components/jquery/dist/jquery.min.js') }}"></script>
+<script type="text/javascript"
+  src="{{ asset('adminty/bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
+<script type="text/javascript"
+  src="{{ asset('adminty/bower_components/popper.js/dist/umd/popper.min.js') }}"></script>
+<script type="text/javascript"
+  src="{{ asset('adminty/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('adminty/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('adminty/assets/pages/advance-elements/select2-custom.js')}}"></script>
+<script type="text/javascript"
+  src="{{ asset('adminty/bower_components/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
 
-  var ctxl = $("#lineChartDemo").get(0).getContext("2d");
-  var lineChart = new Chart(ctxl).Line(data);
-
-  var ctxp = $("#pieChartDemo").get(0).getContext("2d");
-  var pieChart = new Chart(ctxp).Pie(pdata);
+<script type="text/javascript"
+  src="{{ asset('adminty/bower_components/modernizr/modernizr.js') }}"></script>
+<script type="text/javascript"
+  src="{{ asset('adminty/bower_components/modernizr/feature-detects/css-scrollbars.js') }}">
 </script>
-<!-- Google analytics script-->
-<script type="text/javascript">
-  if(document.location.hostname == 'pratikborsadiya.in') {
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-72504830-1', 'auto');
-    ga('send', 'pageview');
-  }
+<script type="text/javascript"
+  src="{{ asset('adminty/bower_components/chart.js/dist/Chart.js') }}"></script>
+
+<script src="../../../developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+</script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="{{ asset('adminty/assets/pages/google-maps/gmaps.js') }}">
 </script>
 
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-  })
-</script>
+
+<script src="{{ asset('adminty/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('adminty/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('adminty/assets/pages/data-table/js/jszip.min.js') }}"></script>
+<script src="{{ asset('adminty/assets/pages/data-table/js/pdfmake.min.js') }}"></script>
+<script src="{{ asset('adminty/assets/pages/data-table/js/vfs_fonts.js') }}"></script>
+<script src="{{ asset('adminty/assets/pages/data-table/extensions/autofill/js/dataTables.autoFill.min.js') }}"></script>
+<script src="{{ asset('adminty/assets/pages/data-table/extensions/autofill/js/dataTables.select.min.js') }}"></script>
+<script src="{{ asset('adminty/bower_components/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('adminty/bower_components/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('adminty/assets/pages/data-table/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('adminty/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('adminty/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('adminty/assets/pages/data-table/extensions/autofill/js/extensions-custom.js') }}"></script>
+
+
+<script src="{{ asset('adminty/assets/pages/widget/gauge/gauge.min.js') }}"></script>
+<script src="{{ asset('adminty/assets/pages/widget/amchart/amcharts.js') }}"></script>
+<script src="{{ asset('adminty/assets/pages/widget/amchart/serial.js') }}"></script>
+<script src="{{ asset('adminty/assets/pages/widget/amchart/gauge.js') }}"></script>
+<script src="{{ asset('adminty/assets/pages/widget/amchart/pie.js') }}"></script>
+<script src="{{ asset('adminty/assets/pages/widget/amchart/light.js') }}"></script>
+
+<script src="{{ asset('adminty/assets/js/pcoded.min.js') }}"></script>
+<script src="{{ asset('adminty/assets/js/vartical-layout.min.js') }}"></script>
+<script src="{{ asset('adminty/assets/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+<script type="text/javascript"
+  src="{{ asset('adminty/assets/pages/dashboard/crm-dashboard.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('adminty/assets/js/script.js') }}"></script>
+<script type="text/javascript" src="{{ asset('adminty/bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js') }}"></script>
+<script type="text/javascript" src="{{ asset('adminty/bower_components/multiselect/js/jquery.multi-select.js') }}"></script>
 </body>
+
+<!-- Mirrored from demo.dashboardpack.com/adminty-html/default/dashboard-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 01 Dec 2022 13:44:47 GMT -->
+
 </html>

@@ -24,7 +24,7 @@ class PegawaiRequest extends FormRequest
     public function rules()
     {
         return [
-            'nip'=>'required',
+            'nip'=>'required|unique',
             'nama'=>'required',
             'email'=>'required',
             'gd'=>'required',

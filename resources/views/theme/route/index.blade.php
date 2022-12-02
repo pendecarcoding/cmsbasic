@@ -5,26 +5,29 @@ use App\level;
 $level = level::all();
  ?>
 <main class="app-content">
-  <div class="app-title">
-    <div>
-      <h1><i class="fa fa-dashboard"></i> Route</h1>
-      <p>Untuk mengatur Route Aplikasi</p>
-    </div>
-    <ul class="app-breadcrumb breadcrumb">
-      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-      <li class="breadcrumb-item"><a href="#">Dashboard </a></li>
-    </ul>
-  </div>
-
 <div class="row">
 <div class="col-12">
   <div class="card">
+   
+         <div class="card-header">
+           <a data-toggle="modal" data-target="#tambah" style="color:white;float:right;"
+            class="btn waves-effect waves-light btn-primary">Add Data</a>
+<h5>Menu</h5>
+<span>this for management Menu</span>
+<div class="card-header-right">
+<ul class="list-unstyled card-option">
+<li><i class="feather icon-maximize full-card"></i></li>
+<li><i class="feather icon-minus minimize-card"></i>
+</li>
+<li><i class="feather icon-trash-2 close-card"></i></li>
+</ul>
+</div>
+</div>
     <div class="card-body">
-      <h4 class="card-title">Data Route</h4>
-      <h6 class="card-subtitle">Data Route digunakan untuk mengatur route pada laravel</h6>
-      <a data-toggle="modal" data-target="#tambah" style="color:white;"class="btn waves-effect waves-light btn-primary">Tambah Data</a>
+     
       <!-- Modal -->
-      <div class="modal fade" id="tambah" role="dialog">
+      <div id="tambah" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
         <div class="modal-dialog modal-lg">
           <!-- Modal content-->
           <div class="modal-content">
@@ -50,8 +53,8 @@ $level = level::all();
                 <option value="N">Non Aktif</option>
               </select>
               <label>Role Session</label>
-              <select class="form-control select2" name="akses[]" id="exampleSelect2" multiple=""
-                      style="width: 100%;color:white;">
+              
+              <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="akses[]">
                       @foreach($level as $index =>$v)
                       <option value="{{$v->level}}">{{$v->level}}</option>
                       @endforeach
@@ -119,7 +122,7 @@ $level = level::all();
                     <label>Method</label>
                     <input type="text" value="{{$v->method}}" class="form-control" name="method" required>
                     <label>Active</label>
-                    <select class="form-control" name="active" required>
+                    <select id="select2insidemodal" class="form-control" name="active" required>
                       <option value="">--Pilih Aksi--</option>
                       <option value="Y" @if($v->active=='Y') selected @endif>Aktif</option>
                       <option value="N" @if($v->active=='N') selected @endif>Non Aktif</option>
@@ -158,3 +161,12 @@ $level = level::all();
 <!-- ============================================================== -->
 <!-- End Container fluid  -->
 @endsection
+<script>
+
+$(document).ready(function() {
+  $("#select2insidemodal").select2({
+    dropdownParent: $("#tambah")
+  });
+});
+
+</script>

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\PegawaiRequest;
 use App\Http\Interfaces\PegawaiInterfaces;
+use Session;
 class PegawaiCo extends Controller
 {
 
@@ -24,8 +25,23 @@ class PegawaiCo extends Controller
  public function create(Request $r){
   try {
     if($r->has('file')){
-    $data = $r->all();
-    $this->DI->create($data);
+    $imgbase64 = base64_encode(file_get_contents($r->file('file')));
+    $titleimg  = uniqid().'.png';
+    $data = [
+      'nip'=>$r->nip,
+      'nama'=>$r->nama,
+      'email'=>$r->email,
+      'gd'=>$r->gd,
+      'gb'=>$r->gb,
+      'nohp'=>$r->nohp,
+      'image'=>$titleimg,
+      'satatus'=>'ASN',
+      'kode_unitkerja'=>Session::get('kode_unitkerja'),
+      'cerated_at'=>now(),
+      'updated_at'=>now()
+    ];
+    $this->DI->create($data,$imgbase64,$titleimg);
+    return back()->with('success','Data berhasil disimpan');
     }
   } catch (\Throwable $th) {
     return back()->with('danger',$th->getmessage());
@@ -34,10 +50,52 @@ class PegawaiCo extends Controller
  }
 
  public function update(Request $r){
+   try {
+    if($r->has('file')){
+    $imgbase64 = base64_encode(file_get_contents($r->file('file')));
+    $titleimg  = uniqid().'.png';
+    $imageold  = $r->imageold;
+    $id        = $r->id;
+    $data = [
+      'nip'=>$r->nip,
+      'nama'=>$r->nama,
+      'email'=>$r->email,
+      'gd'=>$r->gd,
+      'gb'=>$r->gb,
+      'nohp'=>$r->nohp,
+      'image'=>$titleimg,
+      'satatus'=>'ASN',
+      'kode_unitkerja'=>Session::get('kode_unitkerja'),
+      'cerated_at'=>now(),
+      'updated_at'=>now()
+    ];
+    $this->DI->updateimage($data,$id,$imgbase64,$titleimg,$imageold);
+    return back()->with('success','Data berhasil disimpan');
+    }else{
+      $id   = $r->id;
+      $data = [
+        'nip'=>$r->nip,
+        'nama'=>$r->nama,
+        'email'=>$r->email,
+        'gd'=>$r->gd,
+        'gb'=>$r->gb,
+        'nohp'=>$r->nohp,
+      ];
+      $this->DI->update($data,$id);
+      return back()->with('success','Data berhasil disimpan');
+    }
+  } catch (\Throwable $th) {
+    return back()->with('danger',$th->getmessage());
+  }
+
    
  }
  public function delete($id=null){
-   
+   try {
+    return $this->DI->delete(base64_decode($id));
+   } catch (\Throwable $th) {
+    return back()->with('danger',$th->getmessage());
+   }
  }
 
 

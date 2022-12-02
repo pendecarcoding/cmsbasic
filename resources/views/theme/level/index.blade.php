@@ -14,10 +14,12 @@
 <div class="row">
 <div class="col-12">
   <div class="card">
-    <div class="card-body">
-      <h4 class="card-title">level Level</h4>
+    <div class="card-header">
+       <a data-toggle="modal" data-target="#tambah" style="color:white;float:right"class="btn waves-effect waves-light btn-primary">Tambah Data</a>
+      <h4 class="card-title">Level</h4>
       <h6 class="card-subtitle">Data ini digunakan untuk menambahkan level user</h6>
-      <a data-toggle="modal" data-target="#tambah" style="color:white;"class="btn waves-effect waves-light btn-primary">Tambah Data</a>
+    </div>
+     <div class="card-body">
       <!-- Modal -->
       <div class="modal fade" id="tambah" role="dialog">
         <div class="modal-dialog modal-lg">

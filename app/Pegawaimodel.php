@@ -14,6 +14,7 @@ class Pegawaimodel extends Model
     'nohp',
     'image',
     'status',
+    'kode_unitkerja'
 ];
   
 }

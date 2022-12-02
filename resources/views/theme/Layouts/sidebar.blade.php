@@ -11,47 +11,53 @@ $menu        = AplikasiModel::where('id_app','1')->first();
 $user        = UserModel::where('id_user',$iduser)->first();
 
  ?>
- <aside class="app-sidebar">
-   <div class="app-sidebar__user">
-     <img style="width:50px;height:50px;" class="app-sidebar__user-avatar" src="{{url('theme/users/'.$user->foto)}}" alt="User Image">
-     <div>
-       <p class="app-sidebar__user-name">{{$user->nama}}</p>
-       <p class="app-sidebar__user-designation">{{$user->level}}</p>
-     </div>
-   </div>
-   <ul class="app-menu">
-     <li><a class="app-menu__item {{ Request::is('dashboard')? "active":"" }}" href="{{url('dashboard')}}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
-     @foreach($listmenu as $i=>$v)
-              <?php
+<nav class="pcoded-navbar">
+  <div class="pcoded-inner-navbar main-menu">
+    <div class="pcoded-navigatio-lavel">Application Menu</div>
+    <ul class="pcoded-item pcoded-left-item">
+ <li class=" ">
+          <a href="{{url('dashboard')}}">
+            <span class="pcoded-micon"><i class="fa-sharp fa-solid fa-gauge"></i><b>A</b></span>
+            <span class="pcoded-mtext">Dashboard</span>
+          </a>
+        </li>
+      @foreach($listmenu as $i=>$v)
+        <?php
                 $item = $v->dropdown;
                 switch ($item) {
                   case 'N':
                     ?>
-                    <li>
-                      <a class="app-menu__item {{ Request::is($v->is_active)? "active":"" }}" href="{{url($v->url)}}">
-                        <i class="app-menu__icon {{$v->icon}}">
-                        </i>
-                        <span class="app-menu__label">{{$v->name}}</span>
-                      </a>
-                    </li>
+        <li class=" ">
+          <a href="{{url($v->url)}}">
+            <span class="pcoded-micon"><i class="{{$v->icon}}"></i><b>A</b></span>
+            <span class="pcoded-mtext">{{$v->name}}</span>
+          </a>
+        </li>
 
 
-                    <?php
+        <?php
                   break;
                   case 'Y':
                   $submenu     = $li->getsub($v->id_sub,$level);
-                    ?>
+                  ?>
+        <li class="pcoded-hasmenu active pcoded-trigger">
+          <a href="javascript:void(0)">
+            <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+            <span class="pcoded-mtext">Dashboard</span>
+          </a>
+          <ul class="pcoded-submenu">
+            @foreach($submenu as $index => $vsub)
+              <li class="">
+                <a href="https://demo.dashboardpack.com/adminty-html/index.html">
+                  <span class="pcoded-mtext">Default</span>
+                </a>
+              </li>
+            @endforeach
 
-                         <li class="treeview @foreach($submenu as $index => $vsub) {{ Request::is($vsub->is_active)? "is-expanded":"" }} @endforeach"><a class="app-menu__item @foreach($submenu as $index => $vsub) {{ Request::is($vsub->is_active)? "active":"" }} @endforeach" href="#" data-toggle="treeview"><i class="app-menu__icon fa {{$v->icon}}"></i><span class="app-menu__label">{{$v->name}}</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-                           <ul class="treeview-menu">
 
-                              @foreach($submenu as $index => $vsub)
-                             <li><a class="treeview-item" href="{{url($vsub->url)}}"><i class="icon fa fa-circle-o"></i> {{$vsub->name}}</a></li>
-                              @endforeach
-                           </ul>
-                         </li>
-
-                    <?php
+          </ul>
+        </li>
+        <?php
                   break;
 
                   default:
@@ -62,5 +68,9 @@ $user        = UserModel::where('id_user',$iduser)->first();
 
               @endforeach
 
-</ul>
- </aside>
+
+    </ul>
+
+
+  </div>
+</nav>

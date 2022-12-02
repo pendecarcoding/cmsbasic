@@ -1,215 +1,842 @@
 @extends('theme.Layouts.design')
 @section('content')
-<?php
-use App\Cmenu;
-use App\KordinatModel;
-$class = new Cmenu();
-if(Session::get('level')=='user'){
-  $datamarker = KordinatModel::where('latitude','!=','')
-                ->where('longitude','!=','')
-                ->where('kode_unitkerja',Session::get('kode_unitkerja'))
-                ->get();
-  $centermarker = KordinatModel::where('latitude','!=','')
-                ->where('longitude','!=','')
-                ->where('kode_unitkerja',Session::get('kode_unitkerja'))
-                ->first();
-  $clatitude   = $centermarker->latitude;
-  $clongitude  = $centermarker->longitude;
+ <div class="main-body">
+                  <div class="page-wrapper">
+                    <div class="page-body">
+                      <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                          <div class="card bg-c-yellow text-white">
+                            <div class="card-block">
+                              <div class="row align-items-center">
+                                <div class="col">
+                                  <p class="m-b-5">New Customer</p>
+                                  <h4 class="m-b-0">852</h4>
+                                </div>
+                                <div class="col col-auto text-right">
+                               
+                                  <i
+                                    class="fa-solid fa-user f-50 text-c-yellow"
+                                  ></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                          <div class="card bg-c-green text-white">
+                            <div class="card-block">
+                              <div class="row align-items-center">
+                                <div class="col">
+                                  <p class="m-b-5">Income</p>
+                                  <h4 class="m-b-0">$5,852</h4>
+                                </div>
+                                <div class="col col-auto text-right">
+                                  <i
+                                    class="fa-solid fa-credit-card f-50 text-c-green"
+                                  ></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                          <div class="card bg-c-pink text-white">
+                            <div class="card-block">
+                              <div class="row align-items-center">
+                                <div class="col">
+                                  <p class="m-b-5">Ticket</p>
+                                  <h4 class="m-b-0">42</h4>
+                                </div>
+                                <div class="col col-auto text-right">
+                              
+                                  <i
+                                    class="fa-solid fa-book f-50 text-c-pink"
+                                  ></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                          <div class="card bg-c-blue text-white">
+                            <div class="card-block">
+                              <div class="row align-items-center">
+                                <div class="col">
+                                  <p class="m-b-5">Orders</p>
+                                  <h4 class="m-b-0">$5,242</h4>
+                                </div>
+                                <div class="col col-auto text-right">
+                                  <i
+                                    class="fa-solid fa-cart-shopping f-50 text-c-blue"
+                                  ></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
-   $zoom = 20;
-}else{
-  $datamarker = KordinatModel::where('latitude','!=','')
-                ->where('longitude','!=','')
-                ->get();
-  $clatitude   = '1.583164915316166';
-  $clongitude  = '101.81656018345798';
-   $zoom = 9;
-}
+                        <div class="col-xl-8 col-md-12">
+                          <div class="card">
+                            <div class="card-header">
+                              <div class="card-header-left">
+                                <h5>Monthly View</h5>
+                                <span class="text-muted"
+                                  >For more details about usage, please refer
+                                  <a
+                                    href="https://www.amcharts.com/online-store/"
+                                    target="_blank"
+                                    >amCharts</a
+                                  >
+                                  licences.</span
+                                >
+                              </div>
+                            </div>
+                            <div class="card-block-big">
+                              <div
+                                id="monthly-graph"
+                                style="height: 250px"
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-4 col-md-12">
+                          <div class="card feed-card">
+                            <div class="card-header">
+                              <h5>Feeds</h5>
+                            </div>
+                            <div class="card-block">
+                              <div class="row m-b-30">
+                                <div class="col-auto p-r-0">
+                               
+                                  <i
+                                    class="fa-solid fa-bell bg-simple-c-blue feed-icon"
+                                  ></i>
+                                </div>
+                                <div class="col">
+                                  <h6 class="m-b-5">
+                                    You have 3 pending tasks.
+                                    <span class="text-muted f-right f-13"
+                                      >Just Now</span
+                                    >
+                                  </h6>
+                                </div>
+                              </div>
+                              <div class="row m-b-30">
+                                <div class="col-auto p-r-0">
+                                  
+                                  <i
+                                    class="fa-solid fa-cart-shopping bg-simple-c-pink feed-icon"
+                                  ></i>
+                                </div>
+                                <div class="col">
+                                  <h6 class="m-b-5">
+                                    New order received
+                                    <span class="text-muted f-right f-13"
+                                      >Just Now</span
+                                    >
+                                  </h6>
+                                </div>
+                              </div>
+                              <div class="row m-b-30">
+                                <div class="col-auto p-r-0">
+                                 
+                                  <i
+                                    class="fa-solid fa-file bg-simple-c-green feed-icon"
+                                  ></i>
+                                </div>
+                                <div class="col">
+                                  <h6 class="m-b-5">
+                                    You have 3 pending tasks.
+                                    <span class="text-muted f-right f-13"
+                                      >Just Now</span
+                                    >
+                                  </h6>
+                                </div>
+                              </div>
+                              <div class="row m-b-30">
+                                <div class="col-auto p-r-0">
+                                 <i
+                                    class="fa-solid fa-cart-shopping bg-simple-c-pink feed-icon"
+                                  ></i>
+                                </div>
+                                <div class="col">
+                                  <h6 class="m-b-5">
+                                    New order received
+                                    <span class="text-muted f-right f-13"
+                                      >Just Now</span
+                                    >
+                                  </h6>
+                                </div>
+                              </div>
+                              <div class="row m-b-30">
+                                <div class="col-auto p-r-0">
+                                 <i
+                                    class="fa-solid fa-file bg-simple-c-green feed-icon"
+                                  ></i>
+                                </div>
+                                <div class="col">
+                                  <h6 class="m-b-5">
+                                    You have 3 pending tasks.
+                                    <span class="text-muted f-right f-13"
+                                      >Just Now</span
+                                    >
+                                  </h6>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
- ?>
-<main class="app-content">
-  <div class="app-title">
-    <div>
-      <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
-      <p>A free and open source Bootstrap 4 admin template</p>
-    </div>
-    <ul class="app-breadcrumb breadcrumb">
-      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-      <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-    </ul>
-  </div>
-  <div class="row">
-    <div class="col-md-6 col-lg-3">
-      <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
-        <div class="info">
-          <h4>Pegawai</h4>
-          <p><b></b></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="widget-small info coloured-icon"><i class="icon fa fa-files-o fa-3x"></i>
-        <div class="info">
-          <h4>IZIN DINAS</h4>
-          <p><b>25</b></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="widget-small warning coloured-icon"><i class="icon fa fa-files-o fa-3x"></i>
-        <div class="info">
-          <h4>Izin Sakit</h4>
-          <p><b>10</b></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="widget-small danger coloured-icon"><i class="icon fa fa-files-o fa-3x"></i>
-        <div class="info">
-          <h4>Izin Cuti</h4>
-          <p><b>500</b></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
+                        <div class="col-xl-4 col-md-6">
+                          <div class="card">
+                            <div class="card-header">
+                              <h5>Total Leads</h5>
+                              <div class="card-header-right">
+                                <ul class="list-unstyled card-option">
+                                  <li>
+                                    <i
+                                      class="fa fa fa-wrench open-card-option"
+                                    ></i>
+                                  </li>
+                                  <li>
+                                    <i
+                                      class="fa fa-window-maximize full-card"
+                                    ></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-minus minimize-card"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-refresh reload-card"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-trash close-card"></i>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="card-block">
+                              <p class="text-c-green f-w-500">
+                                <i class="feather icon-chevrons-up m-r-5"></i>
+                                18% High than last month
+                              </p>
+                              <div class="row">
+                                <div class="col-4 b-r-default">
+                                  <p class="text-muted m-b-5">Overall</p>
+                                  <h5>76.12%</h5>
+                                </div>
+                                <div class="col-4 b-r-default">
+                                  <p class="text-muted m-b-5">Monthly</p>
+                                  <h5>16.40%</h5>
+                                </div>
+                                <div class="col-4">
+                                  <p class="text-muted m-b-5">Day</p>
+                                  <h5>4.56%</h5>
+                                </div>
+                              </div>
+                            </div>
+                            <canvas id="tot-lead" height="150"></canvas>
+                          </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                          <div class="card">
+                            <div class="card-header">
+                              <h5>Total Vendors</h5>
+                              <div class="card-header-right">
+                                <ul class="list-unstyled card-option">
+                                  <li>
+                                    <i
+                                      class="fa fa fa-wrench open-card-option"
+                                    ></i>
+                                  </li>
+                                  <li>
+                                    <i
+                                      class="fa fa-window-maximize full-card"
+                                    ></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-minus minimize-card"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-refresh reload-card"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-trash close-card"></i>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="card-block">
+                              <p class="text-c-pink f-w-500">
+                                <i
+                                  class="feather icon-chevrons-down m-r-15"
+                                ></i>
+                                24% High than last month
+                              </p>
+                              <div class="row">
+                                <div class="col-4 b-r-default">
+                                  <p class="text-muted m-b-5">Overall</p>
+                                  <h5>68.52%</h5>
+                                </div>
+                                <div class="col-4 b-r-default">
+                                  <p class="text-muted m-b-5">Monthly</p>
+                                  <h5>28.90%</h5>
+                                </div>
+                                <div class="col-4">
+                                  <p class="text-muted m-b-5">Day</p>
+                                  <h5>13.50%</h5>
+                                </div>
+                              </div>
+                            </div>
+                            <canvas id="tot-vendor" height="150"></canvas>
+                          </div>
+                        </div>
+                        <div class="col-xl-4 col-md-12">
+                          <div class="card">
+                            <div class="card-header">
+                              <h5>Invoice Generate</h5>
+                              <div class="card-header-right">
+                                <ul class="list-unstyled card-option">
+                                  <li>
+                                    <i
+                                      class="fa fa fa-wrench open-card-option"
+                                    ></i>
+                                  </li>
+                                  <li>
+                                    <i
+                                      class="fa fa-window-maximize full-card"
+                                    ></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-minus minimize-card"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-refresh reload-card"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-trash close-card"></i>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="card-block">
+                              <p class="text-c-green f-w-500">
+                                <i class="feather icon-chevrons-up m-r-15"></i>
+                                20% High than last month
+                              </p>
+                              <div class="row">
+                                <div class="col-4 b-r-default">
+                                  <p class="text-muted m-b-5">Overall</p>
+                                  <h5>68.52%</h5>
+                                </div>
+                                <div class="col-4 b-r-default">
+                                  <p class="text-muted m-b-5">Monthly</p>
+                                  <h5>28.90%</h5>
+                                </div>
+                                <div class="col-4">
+                                  <p class="text-muted m-b-5">Day</p>
+                                  <h5>13.50%</h5>
+                                </div>
+                              </div>
+                            </div>
+                            <canvas id="invoice-gen" height="150"></canvas>
+                          </div>
+                        </div>
 
-    <div class="col-md-12">
-      <div class="tile">
-        <h3 class="tile-title">Kordinat</h3>
+                        <div class="col-xl-6 col-md-12">
+                          <div class="card table-card">
+                            <div class="card-header">
+                              <h5>Recent Tickets</h5>
+                              <div class="card-header-right">
+                                <ul class="list-unstyled card-option">
+                                  <li>
+                                    <i
+                                      class="fa fa fa-wrench open-card-option"
+                                    ></i>
+                                  </li>
+                                  <li>
+                                    <i
+                                      class="fa fa-window-maximize full-card"
+                                    ></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-minus minimize-card"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-refresh reload-card"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-trash close-card"></i>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="card-block">
+                              <div class="table-responsive">
+                                <table
+                                  class="table table-hover table-borderless"
+                                >
+                                  <thead>
+                                    <tr>
+                                      <th>Status</th>
+                                      <th>Subject</th>
+                                      <th>Department</th>
+                                      <th>Date</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>
+                                        <label class="label label-success"
+                                          >open</label
+                                        >
+                                      </td>
+                                      <td>Website down for one week</td>
+                                      <td>Support</td>
+                                      <td>Today 2:00</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <label class="label label-primary"
+                                          >progress</label
+                                        >
+                                      </td>
+                                      <td>Loosing control on server</td>
+                                      <td>Support</td>
+                                      <td>Yesterday</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <label class="label label-danger"
+                                          >closed</label
+                                        >
+                                      </td>
+                                      <td>Authorizations keys</td>
+                                      <td>Support</td>
+                                      <td>27, Aug</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <label class="label label-success"
+                                          >open</label
+                                        >
+                                      </td>
+                                      <td>Restoring default settings</td>
+                                      <td>Support</td>
+                                      <td>Today 9:00</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <label class="label label-primary"
+                                          >progress</label
+                                        >
+                                      </td>
+                                      <td>Loosing control on server</td>
+                                      <td>Support</td>
+                                      <td>Yesterday</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <label class="label label-success"
+                                          >open</label
+                                        >
+                                      </td>
+                                      <td>Restoring default settings</td>
+                                      <td>Support</td>
+                                      <td>Today 9:00</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <label class="label label-danger"
+                                          >closed</label
+                                        >
+                                      </td>
+                                      <td>Authorizations keys</td>
+                                      <td>Support</td>
+                                      <td>27, Aug</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <label class="label label-success"
+                                          >open</label
+                                        >
+                                      </td>
+                                      <td>Restoring default settings</td>
+                                      <td>Support</td>
+                                      <td>Today 9:00</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <label class="label label-primary"
+                                          >progress</label
+                                        >
+                                      </td>
+                                      <td>Loosing control on server</td>
+                                      <td>Support</td>
+                                      <td>Yesterday</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <div class="text-right m-r-20">
+                                  <a href="#!" class="b-b-primary text-primary"
+                                    >View all Projects</a
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-6 col-md-12">
+                          <div class="card latest-update-card">
+                            <div class="card-header">
+                              <h5>Latest Updates</h5>
+                              <div class="card-header-right">
+                                <ul class="list-unstyled card-option">
+                                  <li>
+                                    <i
+                                      class="fa fa fa-wrench open-card-option"
+                                    ></i>
+                                  </li>
+                                  <li>
+                                    <i
+                                      class="fa fa-window-maximize full-card"
+                                    ></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-minus minimize-card"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-refresh reload-card"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-trash close-card"></i>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="card-block">
+                              <div class="latest-update-box">
+                                <div class="row p-t-20 p-b-30">
+                                  <div class="col-auto text-right update-meta">
+                                    <p class="text-muted m-b-0 d-inline">
+                                      2 hrs ago
+                                    </p>
+                                    <i
+                                      class="feather icon-twitter bg-info update-icon"
+                                    ></i>
+                                  </div>
+                                  <div class="col">
+                                    <h6>+ 1652 Followers</h6>
+                                    <p class="text-muted m-b-0">
+                                      You’re getting more and more followers,
+                                      keep it up!
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="row p-b-30">
+                                  <div class="col-auto text-right update-meta">
+                                    <p class="text-muted m-b-0 d-inline">
+                                      4 hrs ago
+                                    </p>
+                                    <i
+                                      class="feather icon-briefcase bg-simple-c-pink update-icon"
+                                    ></i>
+                                  </div>
+                                  <div class="col">
+                                    <h6>+ 5 New Products were added!</h6>
+                                    <p class="text-muted m-b-0">
+                                      Congratulations!
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="row p-b-30">
+                                  <div class="col-auto text-right update-meta">
+                                    <p class="text-muted m-b-0 d-inline">
+                                      1 day ago
+                                    </p>
+                                    <i
+                                      class="feather icon-check bg-simple-c-yellow update-icon"
+                                    ></i>
+                                  </div>
+                                  <div class="col">
+                                    <h6>Database backup completed!</h6>
+                                    <p class="text-muted m-b-0">
+                                      Download the
+                                      <span class="text-c-blue"
+                                        >latest backup</span
+                                      >.
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="row p-b-0">
+                                  <div class="col-auto text-right update-meta">
+                                    <p class="text-muted m-b-0 d-inline">
+                                      2 day ago
+                                    </p>
+                                    <i
+                                      class="feather icon-facebook bg-simple-c-green update-icon"
+                                    ></i>
+                                  </div>
+                                  <div class="col">
+                                    <h6>+2 Friend Requests</h6>
+                                    <p class="text-muted m-b-10">
+                                      This is great, keep it up!
+                                    </p>
+                                    <div class="table-responsive">
+                                      <table class="table table-hover">
+                                        <tr>
+                                          <td class="b-none">
+                                            <a href="#!" class="align-middle">
+                                              <img
+                                                src="../files/assets/images/avatar-2.jpg"
+                                                alt="user image"
+                                                class="img-radius img-40 align-top m-r-15"
+                                              />
+                                              <div class="d-inline-block">
+                                                <h6>Jeny William</h6>
+                                                <p class="text-muted m-b-0">
+                                                  Graphic Designer
+                                                </p>
+                                              </div>
+                                            </a>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="b-none">
+                                            <a href="#!" class="align-middle">
+                                              <img
+                                                src="../files/assets/images/avatar-1.jpg"
+                                                alt="user image"
+                                                class="img-radius img-40 align-top m-r-15"
+                                              />
+                                              <div class="d-inline-block">
+                                                <h6>John Deo</h6>
+                                                <p class="text-muted m-b-0">
+                                                  Web Designer
+                                                </p>
+                                              </div>
+                                            </a>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="text-center">
+                                <a href="#!" class="b-b-primary text-primary"
+                                  >View all Projects</a
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
-          <div class="peta" id="peta" style="margin-top:2px;width:100%;height:500px;"></div>
-
-          <script>
-          function initAutocomplete() {
-          var map = new google.maps.Map(document.getElementById('peta'), {
-          center: {lat: {{$clatitude}}, lng: {{$clongitude}}},
-          zoom: {{$zoom}},
-          mapTypeId: 'terrain'
-
-          });
-
-          // Create the search box and link it to the UI element.
-          var input = document.getElementById('pac-input');
-          var searchBox = new google.maps.places.SearchBox(input);
-          map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-          // Bias the SearchBox results towards current map's viewport.
-          map.addListener('bounds_changed', function() {
-          searchBox.setBounds(map.getBounds());
-
-          });
-
-          var markers = [];
-          // Listen for the event fired when the user selects a prediction and retrieve
-          // more details for that place.
-          searchBox.addListener('places_changed', function() {
-          var places = searchBox.getPlaces();
-
-          if (places.length == 0) {
-          return;
-          }
-
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-          marker.setMap(null);
-          });
-          markers = [];
-
-          // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
-          places.forEach(function(place) {
-          if (!place.geometry) {
-            console.log("Returned place contains no geometry");
-            return;
-          }
-          var icon = {
-            url: place.icon,
-            size: new google.maps.Size(71, 71),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(25, 25)
-          };
-
-          // Create a marker for each place.
-          markers.push(new google.maps.Marker({
-            map: map,
-            icon: icon,
-            title: place.name,
-            position: place.geometry.location
-          }));
-
-          if (place.geometry.viewport) {
-            // Only geocodes have viewport.
-            bounds.union(place.geometry.viewport);
-          } else {
-            bounds.extend(place.geometry.location);
-          }
-          });
-          map.fitBounds(bounds);
-          });
-          var locations = [
-
-          @foreach($datamarker as $key => $v)
-          <?php
-          $instansi = $class->namainstansi($v->kode_unitkerja);
-          ?>
-          ['<h4><b style="color:red;">{{$instansi->nama_unitkerja}}</b></h4><hr><br><b>Kode Unitkerja </b>: </b> {{$v->kode_unitkerja}}<br><b>Kecamatan</b> : {{$instansi->kecamatan}}<br><b>Alamat</b> : {{$instansi->alamat}}<br><b>Radius</b> : <b style="color:red;">{{$v->radius}} meter</b><br><b>Latitude </b> : <b style="color:#ffae00;">{{$v->latitude}}</b><br><b>Longitude</b> : <b style="color:#ffae00;">{{$v->longitude}}</b>', {{$v->latitude}}, {{$v->longitude}},{{$v->radius}}],
-          @endforeach
-
-          ];
-
-
-
-
-          var infowindow = new google.maps.InfoWindow();
-
-
-          //
-
-          var marker, i,circle;
-          /* kode untuk menampilkan banyak marker */
-          for (i = 0; i < locations.length; i++) {
-          marker = new google.maps.Marker({
-          position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-          map: map,
-
-
-          icon: "https://bengkaliskab.go.id/gis/images/building.png"
-
-
-          });
-
-          circle = new google.maps.Circle({
-          map: map,
-          radius: locations[i][3],    // 10 miles in metres
-          fillColor: '#b6e7bacc'
-          });
-
-          circle.bindTo('center', marker, 'position');
-
-          /* menambahkan event clik untuk menampikan
-          infowindows dengan isi sesuai denga
-          marker yang di klik */
-
-          google.maps.event.addListener(marker, 'click', (function(marker, i) {
-          return function() {
-          infowindow.setContent(locations[i][0]);
-          infowindow.open(map, marker);
-          }
-          })(marker, i));
-          }
-
-          }
-
-          </script>
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwxUvl3u_d_3fdomak3SKTITmJqQaDXak&libraries=places&callback=initAutocomplete"
-          async defer></script>
-
-      </div>
-    </div>
-  </div>
-</main>
+                        <div class="col-xl-8 col-md-12">
+                          <div class="card latest-activity-card">
+                            <div class="card-header">
+                              <h5>Latest Activity</h5>
+                            </div>
+                            <div class="card-block">
+                              <div class="latest-update-box">
+                                <div class="row p-t-20 p-b-30">
+                                  <div class="col-auto text-right update-meta">
+                                    <p class="text-muted m-b-0 d-inline">
+                                      just now
+                                    </p>
+                                    <i
+                                      class="feather icon-sunrise bg-simple-c-blue update-icon"
+                                    ></i>
+                                  </div>
+                                  <div class="col">
+                                    <h6>John Deo</h6>
+                                    <p class="text-muted m-b-15">
+                                      The trip was an amazing and a life
+                                      changing experience!!
+                                    </p>
+                                    <img
+                                      src="../files/assets/images/mega-menu/01.jpg"
+                                      alt=""
+                                      class="img-fluid img-100 m-r-15 m-b-10"
+                                    />
+                                    <img
+                                      src="../files/assets/images/mega-menu/03.jpg"
+                                      alt=""
+                                      class="img-fluid img-100 m-r-15 m-b-10"
+                                    />
+                                  </div>
+                                </div>
+                                <div class="row p-b-30">
+                                  <div class="col-auto text-right update-meta">
+                                    <p class="text-muted m-b-0 d-inline">
+                                      5 min ago
+                                    </p>
+                                    <i
+                                      class="feather icon-file-text bg-simple-c-blue update-icon"
+                                    ></i>
+                                  </div>
+                                  <div class="col">
+                                    <h6>Administrator</h6>
+                                    <p class="text-muted m-b-0">
+                                      Free courses for all our customers at A1
+                                      Conference Room - 9:00 am tomorrow!
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="row p-b-30">
+                                  <div class="col-auto text-right update-meta">
+                                    <p class="text-muted m-b-0 d-inline">
+                                      3 hours ago
+                                    </p>
+                                    <i
+                                      class="feather icon-map-pin bg-simple-c-blue update-icon"
+                                    ></i>
+                                  </div>
+                                  <div class="col">
+                                    <h6>Jeny William</h6>
+                                    <p class="text-muted m-b-15">
+                                      Happy Hour! Free drinks at
+                                      <span class="text-c-blue"
+                                        >Cafe-Bar all </span
+                                      >day long!
+                                    </p>
+                                    <div
+                                      id="markers-map"
+                                      style="height: 200px; width: 100%"
+                                    ></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="text-right">
+                                <a href="#!" class="b-b-primary text-primary"
+                                  >View all Activity</a
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-4 col-md-12">
+                          <div class="card per-task-card">
+                            <div class="card-header">
+                              <h5>Your Tasks</h5>
+                            </div>
+                            <div class="card-block">
+                              <div class="row per-task-block text-center">
+                                <div class="col-6">
+                                  <div
+                                    data-label="45%"
+                                    class="radial-bar radial-bar-45 radial-bar-lg radial-bar-primary"
+                                  ></div>
+                                  <h6 class="text-muted">Finished</h6>
+                                  <p class="text-muted">642</p>
+                                  <button
+                                    class="btn btn-primary btn-round btn-sm"
+                                  >
+                                    Manage
+                                  </button>
+                                </div>
+                                <div class="col-6">
+                                  <div
+                                    data-label="30%"
+                                    class="radial-bar radial-bar-30 radial-bar-lg radial-bar-primary"
+                                  ></div>
+                                  <h6 class="text-muted">Remaining</h6>
+                                  <p class="text-muted">495</p>
+                                  <button
+                                    class="btn btn-primary btn-outline-primary btn-round btn-sm"
+                                  >
+                                    Manage
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card feed-card">
+                            <div class="card-header">
+                              <h5>Upcoming Deadlines</h5>
+                              <div class="card-header-right">
+                                <ul class="list-unstyled card-option">
+                                  <li>
+                                    <i
+                                      class="fa fa fa-wrench open-card-option"
+                                    ></i>
+                                  </li>
+                                  <li>
+                                    <i
+                                      class="fa fa-window-maximize full-card"
+                                    ></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-minus minimize-card"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-refresh reload-card"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-trash close-card"></i>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="card-block">
+                              <div class="row m-b-25">
+                                <div class="col-auto p-r-0">
+                                  <img
+                                    src="../files/assets/images/mega-menu/01.jpg"
+                                    alt=""
+                                    class="img-fluid img-50"
+                                  />
+                                </div>
+                                <div class="col">
+                                  <h6 class="m-b-5">New able - Redesign</h6>
+                                  <p class="text-c-pink m-b-0">
+                                    2 Days Remaining
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="row m-b-25">
+                                <div class="col-auto p-r-0">
+                                  <img
+                                    src="../files/assets/images/mega-menu/02.jpg"
+                                    alt=""
+                                    class="img-fluid img-50"
+                                  />
+                                </div>
+                                <div class="col">
+                                  <h6 class="m-b-5">New Admin Dashboard</h6>
+                                  <p class="text-c-pink m-b-0">
+                                    Proposal in 6 Days
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="row m-b-25">
+                                <div class="col-auto p-r-0">
+                                  <img
+                                    src="../files/assets/images/mega-menu/03.jpg"
+                                    alt=""
+                                    class="img-fluid img-50"
+                                  />
+                                </div>
+                                <div class="col">
+                                  <h6 class="m-b-5">Logo Design</h6>
+                                  <p class="text-c-green m-b-0">
+                                    10 Days Remaining
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="text-center">
+                                <a href="#!" class="b-b-primary text-primary"
+                                  >View all Feeds</a
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="styleSelector"></div>
+                </div>
 
 
 @endsection

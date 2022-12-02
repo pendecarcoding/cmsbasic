@@ -30,8 +30,8 @@
           <input type="hidden" name="id" value="{{$v->id_akses}}" class="form-control" required>
 
 
-          <select class="form-control select2" name="akses[]" id="exampleSelect2" multiple=""
-                  style="width: 100%;color:white;">
+          <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="akses[]">
+      
             @foreach ($menu as $index => $d)
             <option value="{{$d->id_side}}"  @if(in_array($d->id_side,$mn)){{"Selected"}}@endif>{{$d->name}}</option>
             @endforeach
@@ -51,8 +51,7 @@
       <label style="font-weight:bold">{{$v->level}}</label>
       <input type="hidden" name="id" value="{{$v->level}}" class="form-control" required>
 
-      <select class="form-control select2" name="akses[]" multiple="multiple"
-              style="width: 100%;color:white;">
+      <select class="js-example-basic-multiple col-sm-12" multiple="multiple" name="akses[]">
         @foreach ($menu as $index => $d)
         <option value="{{$d->id_side}}">{{$d->name}}</option>
         @endforeach

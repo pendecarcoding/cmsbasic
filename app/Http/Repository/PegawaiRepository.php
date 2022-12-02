@@ -6,6 +6,8 @@ use App\Http\Interfaces\PegawaiInterfaces;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Cache;
 use Helper; 
+use Session;
+use File;
 class PegawaiRepository implements PegawaiInterfaces
 {
     protected $model;
@@ -17,12 +19,24 @@ class PegawaiRepository implements PegawaiInterfaces
 
     public function all()
     {
-        return $this->model->orderby('id','DESC')->paginate(10);
+        return $this->model->where('kode_unitkerja',Session::get('kode_unitkerja'))->orderby('id','DESC')->paginate(10);
+    }
+
+      public function base64_decode($image,$titleimg){
+        $photo = str_replace('data:image/png;base64,', '', $image);
+        $photo = str_replace(' ', '+', $photo);
+        $img   = base64_decode($photo);
+        File::makeDirectory(public_path().'/pegawai/'.Session::get('kode_unitkerja'), $mode = 0777, true, true);
+        file_put_contents(public_path().'/pegawai/'.Session::get('kode_unitkerja').'/'.$titleimg, $img);
+        
+                
     }
     
-    public function create(array $data)
+    public function create(array $data, String $image,String $titleimg)
     {  
-        Helper::test();      
+       if($this->model->create($data)){
+           return $this->base64_decode($image,$titleimg);
+        }    
     }
     public function update(array $data, $id)
     {
@@ -38,18 +52,46 @@ class PegawaiRepository implements PegawaiInterfaces
         
     }
 
+    public function updateimage(array $data, $id,String $image,String $titleimg,String $imageold)
+    {
+
+        try {
+            $this->model->where('id', $id)
+            ->update($data);
+            if(file_exists(public_path('pegawai/'.Session::get('kode_unitkerja').'/'.$imageold))){
+            unlink(public_path('pegawai/'.Session::get('kode_unitkerja').'/'.$imageold));
+                return $this->base64_decode($image,$titleimg);
+            }else{
+                return $this->base64_decode($image,$titleimg);
+               
+            }
+             return back()->with('success','Update Successfull!');
+            
+        } catch (Throwable $e) {
+            report($e);
+            return false;
+        }
+        
+    }
+
     public function delete($id)
     {
         if($this->model->find($id) != null){
+            $namafile = $this->model->find($id)->image;
             if($this->model->destroy($id)){
-            return redirect('product')->with('success','Delete Successfull');
+            if(file_exists(public_path('pegawai/'.Session::get('kode_unitkerja').'/'.$namafile))){
+            unlink(public_path('pegawai/'.Session::get('kode_unitkerja').'/'.$namafile));
+            return back()->with('success','Delete Successfull');
+            }
            }else{
-            return redirect('product')->with('danger','Eror Delete');
+            return back()->with('danger','Eror Delete');
            }
             
         }
         
     }
+
+ 
     
     public function find($id)
     {
