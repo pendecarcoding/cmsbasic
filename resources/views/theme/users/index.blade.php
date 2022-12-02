@@ -45,17 +45,7 @@
                  @endforeach
 
               </select>
-              <label>Unit Kerja</label><br>
-              <select style="width:100%" class="form-control select2" name="unitkerja" required>
-                <option value="">--Pilih Unit Kerja--</option>
-
-                 @foreach($listintansi as $index=>$v)
-                   @if($v['nama_unitkerja'] !='')
-                   <option value="{{$v['kode_unitkerja']}}">{{$v['nama_unitkerja']}}</option>
-                   @endif
-                 @endforeach
-
-              </select><br>
+        
               <label>Password</label>
               <input type="password" class="form-control" name="pass" required placeholder="password">
              </div>
@@ -122,17 +112,7 @@
                          @endforeach
 
                       </select>
-                      <label>Unit Kerja</label><br>
-                      <select style="width:100%" class="form-control select2" name="unitkerja" required>
-                        <option value="">--Pilih Unit Kerja--</option>
-
-                         @foreach($listintansi as $index=>$u)
-                           @if($u['nama_unitkerja'] !='')
-                           <option value="{{$u['kode_unitkerja']}}" @if($u['kode_unitkerja']==$v->kode_unitkerja) selected @endif>{{$u['nama_unitkerja']}}</option>
-                           @endif
-                         @endforeach
-
-                      </select><br>
+                      
                       <label>Password</label>
                       <input type="password" class="form-control" name="pass" required placeholder="password">
                      </div>

@@ -30,7 +30,7 @@ public function index(){
   $class = new Cmenu();
   $data  = Loginmodel::where('level','!=','admin')->get();
 
-  return view($this->index,compact('data','listintansi'));
+  return view($this->index,compact('data'));
 }
 public function save(Request $r){
   $bidang = ($r->has('bidang')) ? $r->bidang:null;
